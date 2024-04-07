@@ -25,23 +25,19 @@ let mainInformation = {};
 let dailyForecast = {};
 let mapURL;
 
+// The asynchronous getAllData function retrieves the weather forecast data for a given location from an API.
 const getAllData = async function(city) {
     const weather = await fetch('https://api.weatherapi.com/v1/forecast.json?key=e1dc5b3aa4464ace8f7224321240401&q=' + city);
     const response = await weather.json();
     return response;
 }
 
-// const getMap = async function (coordinates) {
-//     const data = await fetch(`https://dev.virtualearth.net/REST/V1/Imagery/Map/Road/${coordinates}/7?pushpin=${coordinates}mapSize=400,300&format=jpeg&key=AgSlocWfNLuVZMQ8r84vS2pZ-3QM0Pgu1vhpUjerS3e7ucIZjuT-I9vlg3C0MX7l`);
-//     return data.url;
-// }
-
+// Once the first set of data is received a separate API call is made to generate a map view of the area.
 const getSpecificData = async function(city){
     try{
         locationValid = true;
         let data = await getAllData(city);
         let coordinates = `${data["location"]["lat"]},${data["location"]["lon"]}`
-        // mapURL = await getMap(`${data["location"]["lat"]}${data["location"]["lon"]}`);
         mapURL = `https://dev.virtualearth.net/REST/V1/Imagery/Map/Road/${coordinates}/7?pushpin=${coordinates}&mapSize=400,300&format=jpeg&key=AgSlocWfNLuVZMQ8r84vS2pZ-3QM0Pgu1vhpUjerS3e7ucIZjuT-I9vlg3C0MX7l`;
         mainInformation = {
             city: data["location"]["name"],
@@ -100,6 +96,7 @@ const updateDisplay = function() {
     temp6pm.innerHTML = `<p><b>6 pm</b></p> <p>${dailyForecast.temp6pm}°C</p> <img src=https:${dailyForecast.icon6pm}>`;
 }
 
+// The location entered is assumed to be valid but if it's not, the dashboard won't update (with undefined values).
 button.addEventListener("click", async () => {
         await getSpecificData(input.value);
         if (locationValid) {

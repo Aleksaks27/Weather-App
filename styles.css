@@ -162,32 +162,18 @@ body {
     width: 50px;
 }
 
-/* #top > div:hover, #bottom > div:hover {
-    cursor: pointer;
-    transform: scale(1.02);
-    transition: transform 0.3s ease;
-} */
-
-/* @media (max-height: 1000px) {
-    body {
-        height: 90%;
-    }
-} */
-
 @media (max-width: 800px) {
     body {
         grid-template: 130px 4fr/ 1fr;
     }
 
     #sidebar {
-        /* height: 130px; */
         justify-content: center;
         padding: 10px;
     }
 
     #sidebar div {
         flex-direction: row;
-        /* justify-content: center; */
     }
 
     #sidebar input {
@@ -264,7 +250,6 @@ body {
 
     #sidebar div {
         flex-direction: row;
-        /* justify-content: center; */
     }
 
     #sidebar input {
